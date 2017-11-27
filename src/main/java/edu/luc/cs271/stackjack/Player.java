@@ -6,7 +6,6 @@ public class Player {
     private int moneyAmount;
     ArrayList<Card> hand = new ArrayList<Card>();
     private boolean bust = false;
-    private boolean win = false;
     
     // constructor
     public Player(String nameChoice) {
@@ -36,15 +35,7 @@ public class Player {
         return bust;
     }
     
-    public boolean getWinStatus() {
-        return win;
-    }
-    
     public void changeBust(boolean status) {
         bust = status;
-    }
-    
-    public void changeWin(boolean status) {
-        win = status;
     }
 }
