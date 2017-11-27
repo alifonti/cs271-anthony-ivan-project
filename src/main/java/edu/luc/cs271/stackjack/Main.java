@@ -11,7 +11,7 @@ public class Main {
         for(int i = 0; i <= 1; i++) {
             Card draw = deck.popStack();
             playerOne.hit(draw);
-            System.out.println(draw.getCardString());
+            System.out.println("> " + draw.getCardString());
         }
         System.out.println("/// TOTAL: " + playerOne.countHand());
         
@@ -23,19 +23,19 @@ public class Main {
         }
         
         while(!playerOne.getBustStatus()) {
-            System.out.println("Type \"H\" to Hit, \"S\" to Stand");
+            System.out.println("~~ Type \"H\" to Hit, \"S\" to Stand ~~");
             Scanner scanner = new Scanner(System.in); 
             String keyboard = scanner.nextLine(); 
             if(keyboard.equals("H")) {
                 Card draw = deck.popStack();
                 playerOne.hit(draw);
-                System.out.println(draw.getCardString());
+                System.out.println("> " + draw.getCardString());
                 System.out.println("/// TOTAL: " + playerOne.countHand());
                 if(playerOne.countHand() == 21) {
                     playerOne.changeBust(true);
                 }
                 if(playerOne.countHand() > 21) {
-                    System.out.println("You lose");
+                    System.out.println("Bust");
                     playerOne.changeBust(true);
                 }
             }
@@ -53,7 +53,7 @@ public class Main {
             for(int i = 0; i <= 1; i++) {
                 Card draw = deck.popStack();
                 dealer.hit(draw);
-                System.out.println(draw.getCardString());
+                System.out.println("> " + draw.getCardString());
             }
             System.out.println("/// Dealer's Total: " + dealer.countHand());
             
@@ -65,10 +65,11 @@ public class Main {
             while(!dealer.getBustStatus() && dealer.countHand() < 17) {
                 Card draw = deck.popStack();
                 dealer.hit(draw);
-                System.out.println(draw.getCardString());
+                System.out.println("> " + draw.getCardString());
                 System.out.println("/// Dealer's Total: " + dealer.countHand());
                 if(dealer.countHand() > 21) {
-                        dealer.changeBust(true);
+                    System.out.println("Dealer Busts");
+                    dealer.changeBust(true);
                 }
             }
             
