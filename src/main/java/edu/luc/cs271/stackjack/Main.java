@@ -7,13 +7,13 @@ public class Main {
         Player playerOne = new Player("one");
         
         //Player is dealt two cards
-        System.out.println("Cards: ");
+        System.out.println("(Cards)");
         for(int i = 0; i <= 1; i++) {
             Card draw = deck.popStack();
             playerOne.hit(draw);
             System.out.println(draw.getCardString());
         }
-        System.out.println("Total: " + playerOne.countHand());
+        System.out.println("/// TOTAL: " + playerOne.countHand());
         
         // Player plays
         if(playerOne.countHand() == 21) {
@@ -30,7 +30,7 @@ public class Main {
                 Card draw = deck.popStack();
                 playerOne.hit(draw);
                 System.out.println(draw.getCardString());
-                System.out.println("Total: " + playerOne.countHand());
+                System.out.println("/// TOTAL: " + playerOne.countHand());
                 if(playerOne.countHand() == 21) {
                     playerOne.changeBust(true);
                 }
@@ -49,13 +49,13 @@ public class Main {
             Player dealer = new Player("Dealer");
             
             // Dealer deals two cards
-            System.out.println("Dealer's Cards: ");
+            System.out.println("(Dealer's Cards)");
             for(int i = 0; i <= 1; i++) {
                 Card draw = deck.popStack();
                 dealer.hit(draw);
                 System.out.println(draw.getCardString());
             }
-            System.out.println("Total: " + dealer.countHand());
+            System.out.println("/// Dealer's Total: " + dealer.countHand());
             
             // Dealer plays
             if(dealer.countHand() == 21) {
@@ -66,7 +66,7 @@ public class Main {
                 Card draw = deck.popStack();
                 dealer.hit(draw);
                 System.out.println(draw.getCardString());
-                System.out.println("Total: " + dealer.countHand());
+                System.out.println("/// Dealer's Total: " + dealer.countHand());
                 if(dealer.countHand() > 21) {
                         dealer.changeBust(true);
                 }
@@ -76,7 +76,7 @@ public class Main {
             if(dealer.getBustStatus()) {
                 System.out.println("You won!");
             }
-            if(playerOne.countHand() > dealer.countHand()) {
+            else if(playerOne.countHand() > dealer.countHand()) {
                 System.out.println("You won!");
             }
             
