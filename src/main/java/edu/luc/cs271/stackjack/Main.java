@@ -11,6 +11,7 @@ public class Main {
             playerOne.hit(draw);
             System.out.println(draw.getCardString());
         }
+        System.out.println("Total: " + playerOne.countHand());
         if(playerOne.countHand() == 21) {
             //win
             System.out.println("Blackjack!");
@@ -24,6 +25,7 @@ public class Main {
                 Card draw = deck.popStack();
                 playerOne.hit(draw);
                 System.out.println(draw.getCardString());
+                System.out.println("Total: " + playerOne.countHand());
                 if(playerOne.countHand() > 21) {
                     System.out.println("You lose");
                     break;

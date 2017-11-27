@@ -1,12 +1,19 @@
 public class Card {
     //variables
     private String suit;
+    private int number;
     private int value;
     
     //constructor
-    public Card(String cardSuit, int cardValue) {
+    public Card(String cardSuit, int cardNumber) {
         suit = cardSuit;
-        value = cardValue;
+        number = cardNumber;
+        if(cardNumber <= 10) {
+            value = cardNumber;
+        }
+        else {
+            value = 10;
+        }
     }
     
     public String getSuit() {
@@ -21,13 +28,13 @@ public class Card {
         String result = "";
         result += suit;
         String numValue = "";
-        if(value > 1 && value <= 10) {
-            result += " " + value;
+        if(number > 1 && number <= 10) {
+            result += " " + number;
         }
-        else if(value == 1) result += " A";
-        else if(value == 11) result += " J";
-        else if(value == 12) result += " Q";
-        else if(value == 13) result += " K";
+        else if(number == 1) result += " A";
+        else if(number == 11) result += " J";
+        else if(number == 12) result += " Q";
+        else if(number == 13) result += " K";
         
         return result;
     }
