@@ -9,7 +9,7 @@ public class Player {
     private boolean bust = false;
     private boolean turnOver = false;
     private boolean blackjack = false;
-    private boolean aceAsOne = false;
+    private boolean specialAce = false;
     
     // constructor
     public Player(String nameChoice) {
@@ -31,7 +31,7 @@ public class Player {
     }
     
     public boolean getAceAsOne() {
-        return aceAsOne;
+        return specialAce;
     }
     
     public int getMoney() {
@@ -54,11 +54,11 @@ public class Player {
         }
         if(checkAce) {
             if((num + 10) <= 21) {
-                aceAsOne = true;
+                specialAce = true;
                 return num + 10;
             }
             else {
-                aceAsOne = false;
+                specialAce = false;
             }
         }
         return num;
@@ -70,7 +70,7 @@ public class Player {
         bust = false;
         turnOver = false;
         blackjack = false;
-        aceAsOne = false;
+        specialAce = false;
     }
     
     //  change value methods
@@ -95,10 +95,11 @@ public class Player {
     
     //gameplay methods
     public int makeBet() {
-        System.out.println("Your money: $" + getMoney());
+        System.out.println("[   Your money: $" + getMoney() + "   ]");
         System.out.print("How much would you like to bet? (Divisable by two): $");
         Scanner scanner = new Scanner(System.in); 
         String input = scanner.nextLine();
+        System.out.println();
         int number = Integer.parseInt(input);
         if((getMoney() - number >= 0) && number % 2 == 0) {
             bet = number;
@@ -130,9 +131,10 @@ public class Player {
         }
         
         while(!getBustStatus() && !getTurnOver()) {
-            System.out.println("~~ Type \"H\" to Hit, \"S\" to Stand ~~");
+            System.out.print("~~ Type \"H\" to Hit, \"S\" to Stand ~~");
             Scanner scanner = new Scanner(System.in);
-            String keyboard = scanner.nextLine(); 
+            String keyboard = scanner.nextLine();
+            System.out.println();
             if(keyboard.equals("H") || keyboard.equals("h")) {
                 Card draw = deck.popStack();
                 hit(draw);
@@ -155,6 +157,7 @@ public class Player {
     
     public void playAutoHand(Deck deck) {
         // Dealer deals two cards
+        System.out.println("================");
         System.out.println("(Dealer's Cards)");
         for(int i = 0; i <= 1; i++) {
             Card draw = deck.popStack();
@@ -178,35 +181,38 @@ public class Player {
                 changeBust(true);
             }
         }
+        System.out.println("================");
     }
     
     public void compareToDealer(Player dealer) {
         if(dealer.getBustStatus()) {
-            System.out.println("You won!");
+            System.out.println("*** You won! ***");
             changeMoney(bet);
         }
         else if(countHand() > dealer.countHand()) {
-            System.out.println("You won!");
+            System.out.println("*** You won! ***");
             changeMoney(bet);
         }
         
         else if(countHand() == dealer.countHand()) {
-            System.out.println("Push");
+            System.out.println("  *** Push ***");
         }
         
         else {
-            System.out.println("You lost");
+            System.out.println("*** You lost ***");
             changeMoney(-bet);
         }
+        System.out.println();
+        System.out.println();
     }
     
     public void printTotal() {
         countHand();
-        if(aceAsOne) {
-            System.out.println("/// TOTAL: " + (countHand() - 10) + " or " + countHand());
+        if(specialAce) {
+            System.out.println("    /// TOTAL: " + (countHand() - 10) + " or " + countHand());
         }
         else {
-            System.out.println("/// TOTAL: " + countHand());
+            System.out.println("    /// TOTAL: " + countHand());
         }
     }
 }
