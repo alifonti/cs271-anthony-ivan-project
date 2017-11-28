@@ -59,4 +59,19 @@ public class Player {
             moneyAmount = 0;
         }
     }
+    
+    public int makeBet() {
+        System.out.println("Your money: $" + getMoney());
+        System.out.print("How much would you like to bet? (Divisable by two): $");
+        Scanner scanner = new Scanner(System.in); 
+        String input = scanner.nextLine();
+        int number = Integer.parseInt(input);
+        if((getMoney() - number >= 0) && number % 2 == 0) {
+            return number;
+        }
+        else {
+            System.out.println("Invalid bet");
+            return makeBet();
+        }
+    }
 }
