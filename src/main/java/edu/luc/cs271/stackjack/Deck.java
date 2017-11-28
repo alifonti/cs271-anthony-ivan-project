@@ -6,21 +6,12 @@ public class Deck {
     
     //constructor
     public Deck() {
-        ArrayList<Card> Spades = new ArrayList<Card>();
-        ArrayList<Card> Hearts = new ArrayList<Card>();
-        ArrayList<Card> Diamonds = new ArrayList<Card>();
-        ArrayList<Card> Clubs = new ArrayList<Card>();
         for(int i = 1; i <= 13; i++) {
-                Spades.add(new Card("Spade", i));
-                Hearts.add(new Card("Heart", i));
-                Diamonds.add(new Card("Diamond", i)); 
-                Clubs.add(new Card("Club", i));
+            allCards.add(new Card("Spade", i));
+            allCards.add(new Card("Heart", i));
+            allCards.add(new Card("Diamond", i)); 
+            allCards.add(new Card("Club", i));
         }
-        allCards.addAll(Spades);
-        allCards.addAll(Hearts);
-        allCards.addAll(Diamonds);
-        allCards.addAll(Clubs);
-        
         stackedDeck = shuffleAndStack();
     }
 

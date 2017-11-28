@@ -6,6 +6,20 @@ public class Main {
         Deck deck = new Deck();
         Player playerOne = new Player("one");
         
+        //Place bets
+        System.out.println("Your money: $" + playerOne.getMoney());
+        System.out.print("How much would you like to bet? (Divisable by two): $");
+        Scanner scanner = new Scanner(System.in); 
+        String input = scanner.nextLine();
+        int number = Integer.parseInt(input);
+        int bet = 0;
+        if((playerOne.getMoney() - number >= 0) && number % 2 == 0) {
+            bet = number;
+        }
+        else {
+            System.out.println("Invalid bet");
+        }
+        
         //Player is dealt two cards
         System.out.println("(Cards)");
         for(int i = 0; i <= 1; i++) {
@@ -24,9 +38,8 @@ public class Main {
         
         while(!playerOne.getBustStatus()) {
             System.out.println("~~ Type \"H\" to Hit, \"S\" to Stand ~~");
-            Scanner scanner = new Scanner(System.in); 
             String keyboard = scanner.nextLine(); 
-            if(keyboard.equals("H")) {
+            if(keyboard.equals("H") || keyboard.equals("h")) {
                 Card draw = deck.popStack();
                 playerOne.hit(draw);
                 System.out.println("> " + draw.getCardString());
@@ -36,10 +49,11 @@ public class Main {
                 }
                 if(playerOne.countHand() > 21) {
                     System.out.println("Bust");
+                    playerOne.changeMoney(0 - bet);
                     playerOne.changeBust(true);
                 }
             }
-            else if(keyboard.equals("S")) {
+            else if(keyboard.equals("S") || keyboard.equals("s")) {
                 break;
             }
         }
@@ -76,9 +90,11 @@ public class Main {
             // Compare
             if(dealer.getBustStatus()) {
                 System.out.println("You won!");
+                playerOne.changeMoney(bet);
             }
             else if(playerOne.countHand() > dealer.countHand()) {
                 System.out.println("You won!");
+                playerOne.changeMoney(bet);
             }
             
             else if(playerOne.countHand() == dealer.countHand()) {
@@ -87,7 +103,9 @@ public class Main {
             
             else {
                 System.out.println("You lost");
+                playerOne.changeMoney(0 - bet);
             }
         }
+        System.out.println("Your money: $" + playerOne.getMoney());
     }
 }

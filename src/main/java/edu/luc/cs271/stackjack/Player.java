@@ -47,4 +47,16 @@ public class Player {
     public void changeBust(boolean status) {
         bust = status;
     }
+    
+    //money methods
+    public int getMoney() {
+        return moneyAmount;
+    }
+    
+    public void changeMoney(int amount) {
+        moneyAmount += amount;
+        if(moneyAmount < 0) {
+            moneyAmount = 0;
+        }
+    }
 }
