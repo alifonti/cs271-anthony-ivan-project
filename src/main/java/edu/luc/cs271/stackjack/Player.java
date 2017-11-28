@@ -4,6 +4,7 @@ public class Player {
     //variables
     private String name;
     private int moneyAmount;
+    private int bet;
     ArrayList<Card> hand = new ArrayList<Card>();
     private boolean bust = false;
     private boolean turnOver = false;
@@ -77,6 +78,7 @@ public class Player {
         String input = scanner.nextLine();
         int number = Integer.parseInt(input);
         if((getMoney() - number >= 0) && number % 2 == 0) {
+            bet = number;
             return number;
         }
         else {
@@ -85,7 +87,7 @@ public class Player {
         }
     }
     
-    public void playHand(Deck deck, int bet) {
+    public void playHand(Deck deck) {
         //Player is dealt two cards
         System.out.println("(Cards)");
         for(int i = 0; i <= 1; i++) {
@@ -150,5 +152,27 @@ public class Player {
                 changeBust(true);
             }
         }
+    }
+    
+    public void compareToDealer(Player dealer) {
+        if(dealer.getBustStatus()) {
+            System.out.println("You won!");
+            changeMoney(bet);
+        }
+        else if(countHand() > dealer.countHand()) {
+            System.out.println("You won!");
+            changeMoney(bet);
+        }
+        
+        else if(countHand() == dealer.countHand()) {
+            System.out.println("Push");
+        }
+        
+        else {
+            System.out.println("You lost");
+            changeMoney(0 - bet);
+        }
+        
+        System.out.println("Your money: $" + getMoney());
     }
 }
