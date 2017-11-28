@@ -35,6 +35,13 @@ public class Deck {
     }
     
     public Card popStack() {
-        return stackedDeck.pop();
+        if(!stackedDeck.empty()) {
+            return stackedDeck.pop();
+        }
+        else {
+            System.out.println("---shuffling a new deck---");
+            stackedDeck = shuffleAndStack();
+            return stackedDeck.pop();
+        }
     }
 }
