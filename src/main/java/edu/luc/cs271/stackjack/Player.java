@@ -8,6 +8,7 @@ public class Player {
     ArrayList<Card> hand = new ArrayList<Card>();
     private boolean bust = false;
     private boolean turnOver = false;
+    private boolean blackjack = false;
     
     // constructor
     public Player(String nameChoice) {
@@ -22,6 +23,10 @@ public class Player {
     
     public boolean getTurnOver() {
         return turnOver;
+    }
+    
+    public boolean getBlackjack() {
+        return blackjack;
     }
     
     public int getMoney() {
@@ -55,6 +60,7 @@ public class Player {
         bet = 0;
         bust = false;
         turnOver = false;
+        blackjack = false;
     }
     
     //  change value methods
@@ -64,6 +70,10 @@ public class Player {
     
     public void changeTurnOver(boolean status) {
         turnOver = status;
+    }
+    
+    public void changeBlackjack(boolean status) {
+        blackjack = status;
     }
     
     public void changeMoney(int amount) {
@@ -104,7 +114,9 @@ public class Player {
         if(countHand() == 21) {
             //win
             System.out.println("Blackjack!");
+            changeBlackjack(true);
             changeTurnOver(true);
+            changeMoney(bet + (bet/2));
         }
         
         while(!getBustStatus() && !getTurnOver()) {
