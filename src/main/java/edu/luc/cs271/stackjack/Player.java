@@ -50,8 +50,11 @@ public class Player {
         return num;
     }
     
-    public void clearHand() {
+    public void resetHand() {
         hand.clear();
+        bet = 0;
+        bust = false;
+        turnOver = false;
     }
     
     //  change value methods
@@ -118,11 +121,12 @@ public class Player {
                 }
                 if(countHand() > 21) {
                     System.out.println("Bust");
+                    changeMoney(-bet);
                     changeBust(true);
                 }
             }
             else if(keyboard.equals("S") || keyboard.equals("s")) {
-                break;
+                changeTurnOver(true);
             }
         }
     }
@@ -170,9 +174,7 @@ public class Player {
         
         else {
             System.out.println("You lost");
-            changeMoney(0 - bet);
+            changeMoney(-bet);
         }
-        
-        System.out.println("Your money: $" + getMoney());
     }
 }
