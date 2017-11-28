@@ -20,8 +20,17 @@ public class Player {
     
     public int countHand() {
         int num = 0;
+        boolean checkAce = false;
         for(int i = 0; i < hand.size(); i++) {
+            if(hand.get(i).getValue() == 1) {
+                checkAce = true;
+            }
             num += hand.get(i).getValue();
+        }
+        if(checkAce) {
+            if((num + 10) <= 21) {
+                return num + 10;
+            }
         }
         return num;
     }
