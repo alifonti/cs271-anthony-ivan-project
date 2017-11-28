@@ -9,6 +9,7 @@ public class Player {
     private boolean bust = false;
     private boolean turnOver = false;
     private boolean blackjack = false;
+    private boolean aceAsOne = false;
     
     // constructor
     public Player(String nameChoice) {
@@ -27,6 +28,10 @@ public class Player {
     
     public boolean getBlackjack() {
         return blackjack;
+    }
+    
+    public boolean getAceAsOne() {
+        return aceAsOne;
     }
     
     public int getMoney() {
@@ -49,7 +54,11 @@ public class Player {
         }
         if(checkAce) {
             if((num + 10) <= 21) {
+                aceAsOne = true;
                 return num + 10;
+            }
+            else {
+                aceAsOne = false;
             }
         }
         return num;
@@ -61,6 +70,7 @@ public class Player {
         bust = false;
         turnOver = false;
         blackjack = false;
+        aceAsOne = false;
     }
     
     //  change value methods
@@ -108,7 +118,7 @@ public class Player {
             hit(draw);
             System.out.println("> " + draw.getCardString());
         }
-        System.out.println("/// TOTAL: " + countHand());
+        printTotal();
         
         // Player plays
         if(countHand() == 21) {
@@ -127,7 +137,7 @@ public class Player {
                 Card draw = deck.popStack();
                 hit(draw);
                 System.out.println("> " + draw.getCardString());
-                System.out.println("/// TOTAL: " + countHand());
+                printTotal();
                 if(countHand() == 21) {
                     changeTurnOver(true);
                 }
@@ -151,7 +161,7 @@ public class Player {
             hit(draw);
             System.out.println("> " + draw.getCardString());
         }
-        System.out.println("/// Dealer's Total: " + countHand());
+        printTotal();
         
         // Dealer plays
         if(countHand() == 21) {
@@ -162,7 +172,7 @@ public class Player {
             Card draw = deck.popStack();
             hit(draw);
             System.out.println("> " + draw.getCardString());
-            System.out.println("/// Dealer's Total: " + countHand());
+            printTotal();
             if(countHand() > 21) {
                 System.out.println("Dealer Busts");
                 changeBust(true);
@@ -187,6 +197,16 @@ public class Player {
         else {
             System.out.println("You lost");
             changeMoney(-bet);
+        }
+    }
+    
+    public void printTotal() {
+        countHand();
+        if(aceAsOne) {
+            System.out.println("/// TOTAL: " + (countHand() - 10) + " or " + countHand());
+        }
+        else {
+            System.out.println("/// TOTAL: " + countHand());
         }
     }
 }
