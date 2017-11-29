@@ -6,6 +6,7 @@ public class Main {
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
         
+        playIntro();
         // Adding players
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a name for Player 1: ");
@@ -89,5 +90,19 @@ public class Main {
             }
         }
         return false;
+    }
+    
+    public static void playIntro() {
+        System.out.println("  ____  _             _       _            _    ");
+        System.out.println(" / ___|| |_ __ _  ___| | __  | | __ _  ___| | __");
+        System.out.println(" \\___ \\| __/ _` |/ __| |/ /  | |/ _` |/ __| |/ /");
+        System.out.println("  ___) | || (_| | (__|   < |_| | (_| | (__|   < ");
+        System.out.println(" |____/ \\__\\__,_|\\___|_|\\_\\___/ \\__,_|\\___|_|\\_\\");
+        System.out.println("================================================");
+        System.out.println("   A Text Implementation of Blackjack in Java   ");
+        System.out.println();
+        System.out.println("                  Developed by:                 ");
+        System.out.println("        Anthony LiFonti and Ivan Kavanagh       ");
+        System.out.println("================================================");
     }
 }
