@@ -121,7 +121,7 @@ public class Player {
     
     //gameplay methods
     public int makeBet() {
-        System.out.println("[   Your money: $" + moneyAmount + "   ]");
+        System.out.println("[   "+ name + "'s money: $" + moneyAmount + "   ]");
         System.out.print("How much would you like to bet? (Divisible by two): $");
         Scanner scanner = new Scanner(System.in); 
         String input = scanner.nextLine();

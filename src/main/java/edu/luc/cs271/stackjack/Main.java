@@ -22,41 +22,45 @@ public class Main {
                 System.out.println();
             }
             else {
-                table.add(new Player(input));
+                table.add(new Player(name));
             }
         }
         
         
         while(checkTableMoney(table)) {
-            //Place bets
-            playerOne.makeBet();
-            
-            // Dealer plays
-            dealer.playAutoHand(deck);
-            
-            // Player plays
-            playerOne.playHand(deck);
-            
-            //Dealer reveals
-            dealer.revealHand(deck);
-            
-            //Compare hands
-            if(playerOne.countHand(0) <= 21 && !playerOne.getBlackjack()) {
-                playerOne.compareToDealer(dealer, 0);
+            for(int i = 0; i < table.size(); i++) {
+                if(table.get(i).getMoney() > 1) {
+                    //Place bets
+                    table.get(i).makeBet();
+                    
+                    // Dealer plays
+                    dealer.playAutoHand(deck);
+                    
+                    // Player plays
+                    table.get(i).playHand(deck);
+                    
+                    //Dealer reveals
+                    dealer.revealHand(deck);
+                    
+                    //Compare hands
+                    if(table.get(i).countHand(0) <= 21 && !table.get(i).getBlackjack()) {
+                        table.get(i).compareToDealer(dealer, 0);
+                    }
+                    if(table.get(i).countHand(1) != 0) {
+                        table.get(i).compareToDealer(dealer, 1);
+                    }
+                    
+                    //reset
+                    table.get(i).resetHand();
+                    dealer.resetHand();
+                }
             }
-            if(playerOne.countHand(1) != 0) {
-                playerOne.compareToDealer(dealer, 1);
-            }
-            
-            //reset
-            playerOne.resetHand();
-            dealer.resetHand();
         }
     }
     
     public static boolean checkTableMoney(ArrayList<Player> table) {
         for(int i = 0; i < table.size(); i++) {
-            if(table.get(i).getMoney() > 0) {
+            if(table.get(i).getMoney() > 1) {
                 return true;
             }
         }
