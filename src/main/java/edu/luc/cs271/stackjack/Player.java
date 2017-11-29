@@ -20,25 +20,13 @@ public class Player {
     }
     
     // access methods
-    public boolean getBustStatus() {
-        return bust;
-    }
-    
-    public boolean getTurnOver() {
-        return turnOver;
-    }
-    
-    public boolean getBlackjack() {
-        return blackjack;
-    }
-    
-    public boolean getAceAsOne() {
-        return specialAce;
-    }
-    
-    public int getMoney() {
-        return moneyAmount;
-    }
+    public boolean getBustStatus() {return bust;}
+    public boolean getTurnOver() {return turnOver;}
+    public boolean getBlackjack() {return blackjack;}
+    public boolean getAceAsOne() {return specialAce;}
+    public int getMoney() {return moneyAmount;}
+    public int getBet() {return bet;}
+    public String getName() {return name;}
     
     public Card getCard(int pos, int hand) {
         return hands.get(hand).get(pos);
@@ -157,7 +145,7 @@ public class Player {
         // Player plays
         if(countHand(0) == 21) {
             //win
-            System.out.println("Blackjack!");
+            System.out.println("Blackjack!\n");
             changeBlackjack(true);
             changeTurnOver(true);
             changeMoney(bet + (bet/2));
@@ -175,6 +163,7 @@ public class Player {
                 printTotal(0);
                 if(countHand(0) == 21) {
                     changeTurnOver(true);
+                    System.out.println("\n----------");
                 }
                 if(countHand(0) > 21) {
                     System.out.println("  *** Bust ***\n");
@@ -184,6 +173,7 @@ public class Player {
             }
             else if(keyboard.equals("S") || keyboard.equals("s")) {
                 changeTurnOver(true);
+                System.out.print("\n----------\n");
             }
             else if(keyboard.equals("T") || keyboard.equals("t")) {
                 if(checkPair() && bet * 2 <= moneyAmount) {
@@ -197,7 +187,7 @@ public class Player {
                     System.out.println("> " + getCard(1,0).getCardString());
                     playSplitHand(deck, second, 1);
                     changeTurnOver(true);
-                    
+                    System.out.print("\n----------\n");
                 }
                 else if(bet * 2 > moneyAmount) {
                     System.out.println(" ?? Insufficient money to split. Need at least double your bet\n");
@@ -215,6 +205,7 @@ public class Player {
                     System.out.println("> " + draw.getCardString());
                     printTotal(0);
                     changeTurnOver(true);
+                    System.out.print("\n----------\n");
                 }
                 else {
                     System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
@@ -264,6 +255,7 @@ public class Player {
             if(i == 0) System.out.println("> " + draw.getCardString());
             else System.out.println("[Card Face Down]");
         }
+        if(countHand(0) == 21) blackjack = true;
         System.out.println("================\n");
     }
     
@@ -295,24 +287,30 @@ public class Player {
     }
     
     public void compareToDealer(Player dealer, int hand) {
-        if(dealer.getBustStatus() && countHand(hand) <= 21) {
-            System.out.println("*** You won! ***");
+        if(blackjack) {
+            System.out.println("*** " + name + " got Blackjack! ***");
+        }
+        if(dealer.getBustStatus() && countHand(hand) <= 21 && !blackjack) {
+            System.out.println("*** " + name + " won! ***");
             changeMoney(bet);
         }
         else if(countHand(hand) > dealer.countHand(0) && countHand(hand) <= 21) {
-            System.out.println("*** You won! ***");
+            System.out.println("*** " + name + " won! ***");
             changeMoney(bet);
         }
         
-        else if(countHand(hand) == dealer.countHand(0)) {
-            System.out.println("  *** Push ***");
+        else if(countHand(hand) > 21) {
+            System.out.println("*** " + name + " bust ***");
+        }
+        
+        else if(countHand(hand) == dealer.countHand(0) && !blackjack) {
+            System.out.println("*** " + name + " pushed ***");
         }
         
         else {
-            System.out.println("*** You lost ***");
+            System.out.println("*** " + name + " lost ***");
             changeMoney(-bet);
         }
-        System.out.println("\n");
     }
     
     public void printTotal(int hand) {
