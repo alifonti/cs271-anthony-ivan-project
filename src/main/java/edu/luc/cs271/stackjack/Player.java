@@ -290,7 +290,7 @@ public class Player {
         if(blackjack) {
             System.out.println("*** " + name + " got Blackjack! ***");
         }
-        if(dealer.getBustStatus() && countHand(hand) <= 21 && !blackjack) {
+        else if(dealer.getBustStatus() && countHand(hand) <= 21 && !blackjack) {
             System.out.println("*** " + name + " won! ***");
             changeMoney(bet);
         }
@@ -311,6 +311,16 @@ public class Player {
             System.out.println("*** " + name + " lost ***");
             changeMoney(-bet);
         }
+    }
+    
+    public void playTwoCards(Deck deck) {
+        System.out.println("(" + name + "'s Cards)");
+        for(int i = 0; i <= 1; i++) {
+            Card draw = deck.popStack();
+            hit(draw, 0);
+            System.out.println("> " + draw.getCardString());
+        }
+        printTotal(0);
     }
     
     public void printTotal(int hand) {

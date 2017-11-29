@@ -27,9 +27,10 @@ public class Main {
         
         // gameplay loop
         while(checkTableMoney(table)) {
+            
+            // Place bets
             for(int i = 0; i < table.size(); i++) {
                 if(table.get(i).getMoney() > 1) {
-                    //Place bets
                     table.get(i).makeBet();
                 }
             }
@@ -37,19 +38,26 @@ public class Main {
             // Dealer plays
             dealer.playAutoHand(deck);
             
+            // Player plays
             for(int i = 0; i < table.size(); i++) {  
-                if(table.get(i).getMoney() > 1 && !dealer.getBlackjack()) {    
-                    // Player plays
+                if(table.get(i).getMoney() > 1 && !dealer.getBlackjack()) {
                     table.get(i).playHand(deck);
+                }
+            }
+            
+            // if dealer blackjack
+            for(int i = 0; i < table.size(); i++) {  
+                if(table.get(i).getMoney() > 1 && dealer.getBlackjack()) {
+                    table.get(i).playTwoCards(deck);
                 }
             }
             
             //Dealer reveals
             dealer.revealHand(deck);
             
+            //Compare hands
             for(int i = 0; i < table.size(); i++) {
-                if(table.get(i).getMoney() > 1) {  
-                    //Compare hands
+                if(table.get(i).getMoney() > 1) {
                     if(!dealer.getBlackjack()) {
                         table.get(i).compareToDealer(dealer, 0);
                         if(table.get(i).countHand(1) != 0) {
@@ -63,10 +71,12 @@ public class Main {
                         System.out.println("***" + table.get(i).getName() + " lost***");
                         table.get(i).changeMoney(-table.get(i).getBet());
                     }
-                    //reset
+                    // Reset player
                     table.get(i).resetHand();
                 }
             }
+            
+            // Reset dealer
             System.out.println("\n");
             dealer.resetHand();
         }
