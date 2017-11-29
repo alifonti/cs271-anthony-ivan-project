@@ -25,6 +25,8 @@ public class Main {
                 table.add(new Player(name));
             }
         }
+        // set deck
+        deck.setDeck();
         
         // gameplay loop
         while(checkTableMoney(table)) {

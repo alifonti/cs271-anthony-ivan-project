@@ -15,6 +15,10 @@ public class Deck {
                 allCards.add(new Card("Club", i));
             }
         }
+    }
+
+    public void setDeck() {
+        System.out.println("---shuffling a new deck---");
         stackedDeck = shuffleAndStack();
     }
 

@@ -180,11 +180,11 @@ public class Player {
                     Card first = getCard(0, 0);
                     Card second = getCard(1, 0);
                     System.out.println("@@   Left Hand   @@");
-                    System.out.println("> " + getCard(0,0).getCardString());
+                    System.out.println("> " + first.getCardString());
                     playSplitHand(deck, first, 0);
                     System.out.println();
                     System.out.println("@@   Right Hand   @@");
-                    System.out.println("> " + getCard(1,0).getCardString());
+                    System.out.println("> " + second.getCardString());
                     playSplitHand(deck, second, 1);
                     changeTurnOver(true);
                     System.out.print("\n----------\n");
