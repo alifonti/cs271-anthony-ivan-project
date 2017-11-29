@@ -123,8 +123,8 @@ public class Player {
     
     //gameplay methods
     public int makeBet() {
-        System.out.println("[   Your money: $" + getMoney() + "   ]");
-        System.out.print("How much would you like to bet? (Divisable by two): $");
+        System.out.println("[   Your money: $" + moneyAmount + "   ]");
+        System.out.print("How much would you like to bet? (Divisible by two): $");
         Scanner scanner = new Scanner(System.in); 
         String input = scanner.nextLine();
         System.out.println();
@@ -136,7 +136,7 @@ public class Player {
             System.out.println("! Not a number !");
             return makeBet();
         }
-        if((getMoney() - number >= 0) && number % 2 == 0) {
+        if((moneyAmount - number >= 0) && number % 2 == 0) {
             bet = number;
             return number;
         }
@@ -148,7 +148,7 @@ public class Player {
     
     public void playHand(Deck deck) {
         //Player is dealt two cards
-        System.out.println("(Cards)");
+        System.out.println("(" + name + "'s Cards)");
         for(int i = 0; i <= 1; i++) {
             Card draw = deck.popStack();
             hit(draw, 0);
@@ -165,7 +165,7 @@ public class Player {
             changeMoney(bet + (bet/2));
         }
         
-        while(!getBustStatus() && !getTurnOver()) {
+        while(!bust && !turnOver) {
             System.out.print("~~ Type \"H\" to Hit, \"S\" to Stand, \"T\" to Split, \"D\" to Double Down ~~");
             Scanner scanner = new Scanner(System.in);
             String keyboard = scanner.nextLine();
@@ -189,7 +189,7 @@ public class Player {
                 changeTurnOver(true);
             }
             else if(keyboard.equals("T") || keyboard.equals("t")) {
-                if(checkPair() && bet * 2 <= getMoney()) {
+                if(checkPair() && bet * 2 <= moneyAmount) {
                     Card first = getCard(0, 0);
                     Card second = getCard(1, 0);
                     System.out.println("@@   Left Hand   @@");
@@ -202,8 +202,8 @@ public class Player {
                     changeTurnOver(true);
                     
                 }
-                else if(bet * 2 > getMoney()) {
-                    System.out.println("Insufficient money to split. Need at least double your bet");
+                else if(bet * 2 > moneyAmount) {
+                    System.out.println(" ?? Insufficient money to split. Need at least double your bet");
                 }
                 else {
                     System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.");
@@ -211,7 +211,7 @@ public class Player {
                 }
             }
             else if(keyboard.equals("D") || keyboard.equals("d")) {
-                if(countHand(0) >= 9 && countHand(0) <= 11 && bet * 2 <= getMoney()) {
+                if(countHand(0) >= 9 && countHand(0) <= 11 && bet * 2 <= moneyAmount) {
                     bet = bet * 2;
                     System.out.println("## Your bet is now $" + bet + " ##");
                     Card draw = deck.popStack();
@@ -232,7 +232,7 @@ public class Player {
         hands.get(hand).clear();
         hit(card, hand);
         printTotal(hand);
-        while(!getBustStatus() && !getTurnOver()) {
+        while(!bust && !turnOver) {
             System.out.print("~~ Type \"H\" to Hit, \"S\" to Stand ~~ <Split Pair>");
             Scanner scanner = new Scanner(System.in);
             String keyboard = scanner.nextLine();
@@ -288,7 +288,7 @@ public class Player {
             System.out.println("Blackjack!");
         }
         
-        while(!getBustStatus() && countHand(0) < 17) {
+        while(!bust && countHand(0) < 17) {
             Card draw = deck.popStack();
             hit(draw, 0);
             System.out.println("> " + draw.getCardString());
