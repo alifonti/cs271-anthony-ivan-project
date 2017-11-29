@@ -267,11 +267,23 @@ public class Player {
         for(int i = 0; i <= 1; i++) {
             Card draw = deck.popStack();
             hit(draw, 0);
-            System.out.println("> " + draw.getCardString());
+            if(i == 0) System.out.println("> " + draw.getCardString());
+            else System.out.println("[Card Face Down]");
+        }
+        System.out.println("================");
+        System.out.println();
+    }
+    
+    public void revealHand(Deck deck) {
+        // Dealer shows
+        System.out.println("================");
+        System.out.println("(Dealer's Cards)");
+        for(int i = 0; i <= 1; i++) {
+            Card card = getCard(i, 0);
+            System.out.println("> " + card.getCardString());
         }
         printTotal(0);
         
-        // Dealer plays
         if(countHand(0) == 21) {
             System.out.println("Blackjack!");
         }
@@ -287,6 +299,7 @@ public class Player {
             }
         }
         System.out.println("================");
+        System.out.println();
     }
     
     public void compareToDealer(Player dealer, int hand) {
