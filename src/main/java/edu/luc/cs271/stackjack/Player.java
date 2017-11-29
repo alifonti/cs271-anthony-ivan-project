@@ -6,8 +6,6 @@ public class Player {
     private int moneyAmount;
     private int bet;
     ArrayList<ArrayList<Card>> hands = new ArrayList<ArrayList<Card>>();
-    ArrayList<Card> hand = new ArrayList<Card>();
-    ArrayList<Card> altHand = new ArrayList<Card>();
     private boolean bust = false;
     private boolean turnOver = false;
     private boolean blackjack = false;
@@ -15,8 +13,8 @@ public class Player {
     
     // constructor
     public Player(String nameChoice) {
-        hands.add(hand);
-        hands.add(altHand);
+        hands.add(new ArrayList<Card>());
+        hands.add(new ArrayList<Card>());
         moneyAmount = 100;
         name = nameChoice;
     }
@@ -133,7 +131,7 @@ public class Player {
             number = Integer.parseInt(input);
         }
         else {
-            System.out.println("! Not a number !");
+            System.out.println("    ! Not a number !\n");
             return makeBet();
         }
         if((moneyAmount - number >= 0) && number % 2 == 0) {
@@ -141,7 +139,7 @@ public class Player {
             return number;
         }
         else {
-            System.out.println("! Invalid bet !");
+            System.out.println("    ! Invalid bet !\n");
             return makeBet();
         }
     }
@@ -179,8 +177,7 @@ public class Player {
                     changeTurnOver(true);
                 }
                 if(countHand(0) > 21) {
-                    System.out.println("  *** Bust ***");
-                    System.out.println();
+                    System.out.println("  *** Bust ***\n");
                     changeMoney(-bet);
                     changeBust(true);
                 }
@@ -203,11 +200,10 @@ public class Player {
                     
                 }
                 else if(bet * 2 > moneyAmount) {
-                    System.out.println(" ?? Insufficient money to split. Need at least double your bet");
+                    System.out.println(" ?? Insufficient money to split. Need at least double your bet\n");
                 }
                 else {
-                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.");
-                    System.out.println();
+                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.\n");
                 }
             }
             else if(keyboard.equals("D") || keyboard.equals("d")) {
@@ -221,8 +217,7 @@ public class Player {
                     changeTurnOver(true);
                 }
                 else {
-                    System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.");
-                    System.out.println();
+                    System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
                 }
             }
         }
@@ -246,8 +241,7 @@ public class Player {
                     changeTurnOver(true);
                 }
                 if(countHand(hand) > 21) {
-                    System.out.println("  *** Bust ***");
-                    System.out.println();
+                    System.out.println("  *** Bust ***\n");
                     changeMoney(-bet);
                     changeBust(true);
                 }
@@ -270,8 +264,7 @@ public class Player {
             if(i == 0) System.out.println("> " + draw.getCardString());
             else System.out.println("[Card Face Down]");
         }
-        System.out.println("================");
-        System.out.println();
+        System.out.println("================\n");
     }
     
     public void revealHand(Deck deck) {
@@ -299,7 +292,6 @@ public class Player {
             }
         }
         System.out.println("================");
-        System.out.println();
     }
     
     public void compareToDealer(Player dealer, int hand) {
@@ -320,8 +312,7 @@ public class Player {
             System.out.println("*** You lost ***");
             changeMoney(-bet);
         }
-        System.out.println();
-        System.out.println();
+        System.out.println("\n");
     }
     
     public void printTotal(int hand) {
