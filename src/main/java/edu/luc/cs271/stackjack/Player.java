@@ -166,7 +166,7 @@ public class Player {
         }
         
         while(!getBustStatus() && !getTurnOver()) {
-            System.out.print("~~ Type \"H\" to Hit, \"S\" to Stand, \"T\" to Split ~~");
+            System.out.print("~~ Type \"H\" to Hit, \"S\" to Stand, \"T\" to Split, \"D\" to Double Down ~~");
             Scanner scanner = new Scanner(System.in);
             String keyboard = scanner.nextLine();
             System.out.println();
@@ -206,7 +206,23 @@ public class Player {
                     System.out.println("Insufficient money to split. Need at least double your bet");
                 }
                 else {
-                    System.out.println("Cannot split these cards. You can only split if dealt a pair");
+                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.");
+                    System.out.println();
+                }
+            }
+            else if(keyboard.equals("D") || keyboard.equals("d")) {
+                if(countHand(0) >= 9 && countHand(0) <= 11 && bet * 2 <= getMoney()) {
+                    bet = bet * 2;
+                    System.out.println("## Your bet is now $" + bet + " ##");
+                    Card draw = deck.popStack();
+                    hit(draw, 0);
+                    System.out.println("> " + draw.getCardString());
+                    printTotal(0);
+                    changeTurnOver(true);
+                }
+                else {
+                    System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.");
+                    System.out.println();
                 }
             }
         }
