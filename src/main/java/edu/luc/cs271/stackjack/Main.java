@@ -14,9 +14,12 @@ public class Main {
             // Player plays
             playerOne.playHand(deck);
             
-            if(playerOne.countHand() <= 21 && !playerOne.getBlackjack()) {
+            if(playerOne.countHand(0) <= 21 && !playerOne.getBlackjack()) {
                 dealer.playAutoHand(deck);
-                playerOne.compareToDealer(dealer);
+                playerOne.compareToDealer(dealer, 0);
+            }
+            if(playerOne.countHand(1) != 0) {
+                playerOne.compareToDealer(dealer, 1);
             }
             playerOne.resetHand();
             dealer.resetHand();

@@ -24,6 +24,10 @@ public class Card {
         return value;
     }
     
+    public int getNumber() {
+        return number;
+    }
+    
     public String getCardString() {
         String result = "";
         result += suit;
