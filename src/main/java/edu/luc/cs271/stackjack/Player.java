@@ -46,6 +46,18 @@ public class Player {
         return hands.get(hand).get(pos);
     }
     
+    // input verifier (Credit: adarshr on Stack Overflow )
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(Character.isLetter(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     // hand methods
     public void hit(Card drawn, int hand) {
         hands.get(hand).add(drawn);
@@ -116,13 +128,20 @@ public class Player {
         Scanner scanner = new Scanner(System.in); 
         String input = scanner.nextLine();
         System.out.println();
-        int number = Integer.parseInt(input);
+        int number = 0;
+        if(!isAlpha(input)) {
+            number = Integer.parseInt(input);
+        }
+        else {
+            System.out.println("! Not a number !");
+            return makeBet();
+        }
         if((getMoney() - number >= 0) && number % 2 == 0) {
             bet = number;
             return number;
         }
         else {
-            System.out.println("Invalid bet");
+            System.out.println("! Invalid bet !");
             return makeBet();
         }
     }
