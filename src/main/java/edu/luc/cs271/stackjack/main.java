@@ -22,32 +22,24 @@ class main
         keys.addAll(cardVals.keySet());
         ArrayList<String> whatYouDrew = new ArrayList<String>();
         whatYouDrew.addAll(myDeck.hitMe(keys));
-       
+        arrayStack myStack = new arrayStack(cardVals.size());
         for(int i = 0; i < cardVals.size();i++)
        {
            //char symbol =
-           System.out.print("you drew: " + cardVals.get(whatYouDrew.get(i)));
+           /*System.out.print("you drew: " + cardVals.get(whatYouDrew.get(i)));
            myDeck.console(myDeck.trimValueTwo(whatYouDrew.get(i)));
            k += myDeck.cardValuecounter(cardVals.get(whatYouDrew.get(i)));
            if(k > 21)
            {
                System.out.println("21");
                break;
-           }
-           System.out.println("Would you like to continue?"); 
-           Scanner scanner = new Scanner(System.in); 
-           String keyboard = scanner.nextLine(); 
-           if(keyboard.equals("y"))
-           {
-               continue;
-           }
-           else
-           {
-               break;
-           }
-          
-           
-       }
+           }*/
+           myStack.push(cardVals.get(whatYouDrew.get(i)));
+        }
+        while(myStack.isEmpty() == false)
+        {
+            System.out.println(myStack.pop());
+        }
        
         
     }
