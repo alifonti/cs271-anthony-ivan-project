@@ -6,7 +6,9 @@ public class Main {
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
         
+        // Intro
         playIntro();
+        
         // Adding players
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter a name for Player 1: ");
@@ -14,10 +16,10 @@ public class Main {
         Player playerOne = new Player(input);
         table.add(playerOne);
         for(int i = 2; i <= 7; i++) {
-            System.out.println("\nEnter another name to add up to 7 Players (or press enter finished)");
+            System.out.println("\n--Press enter when finished--\nor enter another name to add a player (for up to 7 Players)");
             System.out.print("Name " + i + ": ");
             String name = scanner.nextLine();
-            if(name.equals("N") || name.equals("n") || name.equals("")) {
+            if(name.equals("")) {
                 i = 8;
                 System.out.println();
             }
@@ -26,7 +28,9 @@ public class Main {
             }
         }
         // set deck
+        deck.setNumofDecks();
         deck.setDeck();
+        System.out.println("\n");
         
         // gameplay loop
         while(checkTableMoney(table)) {

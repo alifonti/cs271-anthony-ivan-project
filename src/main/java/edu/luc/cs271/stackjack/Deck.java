@@ -17,6 +17,27 @@ public class Deck {
         }
     }
 
+    public void setNumofDecks() {
+        System.out.println("How many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
+        System.out.print("Number of Decks: ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        if(!isAlpha(input)) {
+            int num = Integer.parseInt(input);
+            if(num > 0 && num < 9) {
+                numOfDecks = num;
+            }
+            else {
+                System.out.println("! Invalid Number");
+                setNumofDecks();
+            }
+        }
+        else {
+            System.out.println("! Invalid Number");
+            setNumofDecks();
+        }
+    }
+    
     public void setDeck() {
         System.out.println("---shuffling a new deck---");
         stackedDeck = shuffleAndStack();
@@ -50,5 +71,17 @@ public class Deck {
             stackedDeck = shuffleAndStack();
             return stackedDeck.pop();
         }
+    }
+    
+    // input verifier
+    public boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(Character.isLetter(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
