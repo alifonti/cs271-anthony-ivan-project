@@ -122,7 +122,7 @@ public class Player {
             System.out.println("    ! Not a number !\n");
             return makeBet();
         }
-        if((moneyAmount - number >= 0) && number % 2 == 0) {
+        if((moneyAmount - number >= 0) && number % 2 == 0 && number > 0) {
             bet = number;
             return number;
         }
@@ -253,7 +253,7 @@ public class Player {
             Card draw = deck.popStack();
             hit(draw, 0);
             if(i == 0) System.out.println("> " + draw.getCardString());
-            else System.out.println("[Card Face Down]");
+            else System.out.println("> [Card Face Down]");
         }
         if(countHand(0) == 21) blackjack = true;
         System.out.println("================\n");

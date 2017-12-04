@@ -5,6 +5,7 @@ public class Main {
         ArrayList<Player> table = new ArrayList<Player>();
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
+        int gamemode = 0;
         
         // Intro
         playIntro();
@@ -27,6 +28,10 @@ public class Main {
                 table.add(new Player(name));
             }
         }
+        
+        // choose gamemode
+        gamemode = chooseGamemode();
+        
         // set deck
         deck.setNumofDecks();
         deck.setDeck();
@@ -44,12 +49,14 @@ public class Main {
             
             // Dealer plays
             dealer.playAutoHand(deck);
+            delay(1);
             
             // Player plays
             for(int i = 0; i < table.size(); i++) {  
                 if(table.get(i).getMoney() > 1 && !dealer.getBlackjack()) {
                     table.get(i).playHand(deck);
                 }
+                delay(1);
             }
             
             // if dealer blackjack
@@ -57,10 +64,12 @@ public class Main {
                 if(table.get(i).getMoney() > 1 && dealer.getBlackjack()) {
                     table.get(i).playTwoCards(deck);
                 }
+                delay(0);
             }
             
             //Dealer reveals
             dealer.revealHand(deck);
+            delay(0);
             
             //Compare hands
             for(int i = 0; i < table.size(); i++) {
@@ -86,6 +95,18 @@ public class Main {
             // Reset dealer
             System.out.println("\n");
             dealer.resetHand();
+            delay(1);
+        }
+    }
+    
+    public static void delay(int length) {
+        if(length == 1) {
+            try{Thread.sleep(500);}
+            catch(InterruptedException ex){Thread.currentThread().interrupt();}
+        }
+        else {
+            try{Thread.sleep(200);}
+            catch(InterruptedException ex){Thread.currentThread().interrupt();}
         }
     }
     
@@ -96,6 +117,47 @@ public class Main {
             }
         }
         return false;
+    }
+    
+    // public static boolean checkWinStatus(ArrayList<Player> table, int gamemode) {
+    //     if(gamemode == 0) {
+            
+    //     }
+    //     else if(gamemode == 1) {
+            
+    //     }
+    // }
+    
+    public static int chooseGamemode() {
+        System.out.println("Would you like to play the standard gamemode?");
+        System.out.println("Type \"Y\" for Yes (Standard) or \"N\" for No.\nYour choice: ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        if(input.equals("N") || input.equals("n")) {
+            System.out.println("Which gamemode would you like to play?");
+            System.out.println("( 1 ) - Standard. Play unlimited hands.");
+            System.out.println("( 2 ) - Race to $1,000. First player to reach $1,000 wins!");
+            System.out.println("( 3 ) - Best of Twenty Hands. Player with the most money after 20 hands wins.");
+            System.out.print("Your choice: ");
+            String input2 = scanner.nextLine();
+            if(input2.equals("1")) {
+                return 0;
+            }
+            else if(input2.equals("2")) {
+                return 1;
+            }
+            else if(input2.equals("3")) {
+                return 2;
+            }
+            else {
+                System.out.println("Invalid Number");
+                chooseGamemode();
+            }
+        }
+        else {
+            return 0;
+        }
+        return 0;
     }
     
     public static void playIntro() {
