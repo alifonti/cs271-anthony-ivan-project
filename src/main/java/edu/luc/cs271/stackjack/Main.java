@@ -2,13 +2,18 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        // Intro
+        playIntro();
+        // Start Gameplay Loop
+        gameplayLoop();
+    }
+    
+    public static void gameplayLoop() {
         ArrayList<Player> table = new ArrayList<Player>();
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
         int gamemode = 0;
         int roundCount = 20;
-        // Intro
-        playIntro();
         
         // Adding players
         Scanner scanner = new Scanner(System.in);
@@ -31,6 +36,7 @@ public class Main {
         
         // choose gamemode
         gamemode = chooseGamemode();
+        roundCount = 20;
         
         // set deck
         deck.setNumofDecks();
@@ -102,8 +108,17 @@ public class Main {
             roundCount--;
             delay(1);
         }
+        System.out.println("\nWould you like to play again? Type \"Y\" for Yes, \"N\" for No");
+        System.out.print("Your choice: ");
+        String inputAgain = scanner.nextLine();
+        if(inputAgain.equals("Y") || inputAgain.equals("y")) {
+            System.out.println("\n");
+            gameplayLoop();
+        }
+        
     }
     
+    // Methods
     public static void delay(int length) {
         if(length == 1) {
             try{Thread.sleep(500);}
@@ -190,6 +205,9 @@ public class Main {
                 System.out.println("Invalid Number");
                 chooseGamemode();
             }
+        }
+        else if(!input.equals("Y") || !input.equals("y")) {
+            chooseGamemode();
         }
         else {
             return 0;

@@ -126,7 +126,7 @@ public class Player {
         String input = scanner.nextLine();
         System.out.println();
         int number = 0;
-        if(isNumber(input)) {
+        if(isNumber(input) && !input.equals("")) {
             number = Integer.parseInt(input);
         }
         else {
