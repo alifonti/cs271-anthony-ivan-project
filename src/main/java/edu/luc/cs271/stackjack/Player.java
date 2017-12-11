@@ -200,11 +200,11 @@ public class Player {
                     changeTurnOver(true);
                     System.out.print("\n----------\n");
                 }
-                else if(bet * 2 > moneyAmount) {
-                    System.out.println(" ?? Insufficient money to split. Need at least double your bet\n");
+                else if(!checkPair()) {
+                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.\n");
                 }
                 else {
-                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.\n");
+                    System.out.println(" ?? Cannot split this hand. You don't have enough money to double your bet.\n");
                 }
             }
             else if(keyboard.equals("D") || keyboard.equals("d")) {
@@ -220,7 +220,7 @@ public class Player {
                 }
                 else {
                     if(bet * 2 > moneyAmount) {
-                        System.out.println(" ?? Cannot double down on this hand. Not enough money.\n");
+                        System.out.println(" ?? Cannot double down on this hand. You don't have enough money to double your bet.\n");
                     }
                     else {
                         System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
