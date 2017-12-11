@@ -17,8 +17,9 @@ public class Deck {
         }
     }
 
+    // prompt for Main
     public void setNumofDecks() {
-        System.out.println("How many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
+        System.out.println("\nHow many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
         System.out.print("Number of Decks: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
@@ -38,6 +39,7 @@ public class Deck {
         }
     }
     
+    // setup methods
     public void setDeck() {
         System.out.println("---shuffling a new deck---");
         stackedDeck = shuffleAndStack();

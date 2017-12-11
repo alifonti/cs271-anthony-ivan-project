@@ -6,6 +6,7 @@ public class Main {
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
         int gamemode = 0;
+        int roundCount = 0;
         
         // Intro
         playIntro();
@@ -38,7 +39,7 @@ public class Main {
         System.out.println("\n");
         
         // gameplay loop
-        while(checkTableMoney(table)) {
+        while(checkPlayingStatus(table, gamemode)) {
             
             // Place bets
             for(int i = 0; i < table.size(); i++) {
@@ -81,13 +82,17 @@ public class Main {
                         }
                     }
                     else if(dealer.getBlackjack() && table.get(i).getBlackjack()) {
-                        System.out.println("***" + table.get(i).getName() + " got a stand-off***");
+                        System.out.println("*** " + table.get(i).getName() + " got a stand-off ***");
                     }
                     else {
-                        System.out.println("***" + table.get(i).getName() + " lost***");
+                        System.out.println("*** " + table.get(i).getName() + " lost ***");
                         table.get(i).changeMoney(-table.get(i).getBet());
                     }
                     // Reset player
+                    table.get(i).resetHand();
+                }
+                else if(table.get(i).getBet() > 0) {
+                    System.out.println("*** " + table.get(i).getName() + " is out of money! ***");
                     table.get(i).resetHand();
                 }
             }
@@ -110,27 +115,50 @@ public class Main {
         }
     }
     
-    public static boolean checkTableMoney(ArrayList<Player> table) {
-        for(int i = 0; i < table.size(); i++) {
-            if(table.get(i).getMoney() > 1) {
-                return true;
+    public static boolean checkPlayingStatus(ArrayList<Player> table, int gm) {
+        if(gm == 0) {
+            for(int i = 0; i < table.size(); i++) {
+                if(table.get(i).getMoney() > 1) {
+                    return true;
+                }
             }
+            System.out.println("No more player money is at the table. Game over.");
+            return false;
         }
-        return false;
+        else if(gm == 1) {
+            boolean win = false;
+            for(int i = 0; i < table.size(); i++) {
+                if(table.get(i).getMoney() >= 1000) {
+                    System.out.println(table.get(i).getName() + " won!");
+                    win = true;
+                }
+            }
+            if(win){return false;}
+            for(int i = 0; i < table.size(); i++) {
+                if(table.get(i).getMoney() > 1) {
+                    return true;
+                }
+            }
+            System.out.println("No more player money is at the table. Game over.");
+            return false;
+        }
+        else {
+            return true;
+        }
+        // else {
+        //     if(roundCount == 20) {
+        //         System.out.println("game over");
+        //     }
+        //     else {
+        //         System.out.println((20 - roundCount) + " hands to go.");
+        //         roundCount++;
+        //     }
+        // }
     }
-    
-    // public static boolean checkWinStatus(ArrayList<Player> table, int gamemode) {
-    //     if(gamemode == 0) {
-            
-    //     }
-    //     else if(gamemode == 1) {
-            
-    //     }
-    // }
     
     public static int chooseGamemode() {
         System.out.println("Would you like to play the standard gamemode?");
-        System.out.println("Type \"Y\" for Yes (Standard) or \"N\" for No.\nYour choice: ");
+        System.out.print("Type \"Y\" for Yes (Standard) or \"N\" for No.\nYour choice: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         if(input.equals("N") || input.equals("n")) {

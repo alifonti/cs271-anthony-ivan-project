@@ -16,18 +16,12 @@ public class Card {
         }
     }
     
-    public String getSuit() {
-        return suit;
-    }
+    // access methods
+    public String getSuit() {return suit;}
+    public int getValue() {return value;}
+    public int getNumber() {return number;}
     
-    public int getValue() {
-        return value;
-    }
-    
-    public int getNumber() {
-        return number;
-    }
-    
+    // print methods
     public String getCardString() {
         String result = "";
         result += suit;

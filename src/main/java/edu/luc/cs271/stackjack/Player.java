@@ -208,7 +208,12 @@ public class Player {
                     System.out.print("\n----------\n");
                 }
                 else {
-                    System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
+                    if(bet * 2 > moneyAmount) {
+                        System.out.println(" ?? Cannot double down on this hand. Not enough money.\n");
+                    }
+                    else {
+                        System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
+                    }
                 }
             }
         }
