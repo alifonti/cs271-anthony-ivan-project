@@ -156,7 +156,7 @@ public class Player {
         // Player plays
         if(countHand(0) == 21) {
             //win
-            System.out.println("Blackjack!\n");
+            System.out.println("Blackjack!\n\n----------");
             changeBlackjack(true);
             changeTurnOver(true);
             changeMoney(bet + (bet/2));
@@ -303,29 +303,36 @@ public class Player {
     }
     
     public void compareToDealer(Player dealer, int hand) {
+        //evaluations
         if(blackjack) {
-            System.out.println("*** " + name + " got Blackjack! ***");
+            System.out.print("*** (!) " + name + " got Blackjack! ***");
         }
         else if(dealer.getBustStatus() && countHand(hand) <= 21 && !blackjack) {
-            System.out.println("*** " + name + " won! ***");
+            System.out.print("*** (+) " + name + " won! ***");
             changeMoney(bet);
         }
         else if(countHand(hand) > dealer.countHand(0) && countHand(hand) <= 21) {
-            System.out.println("*** " + name + " won! ***");
+            System.out.print("*** (+) " + name + " won! ***");
             changeMoney(bet);
         }
         
         else if(countHand(hand) > 21) {
-            System.out.println("*** " + name + " bust ***");
+            System.out.print("*** (-) " + name + " bust ***");
         }
         
         else if(countHand(hand) == dealer.countHand(0) && !blackjack) {
-            System.out.println("*** " + name + " pushed ***");
+            System.out.print("*** (~) " + name + " pushed ***");
         }
         
         else {
-            System.out.println("*** " + name + " lost ***");
+            System.out.print("*** (-) " + name + " lost ***");
             changeMoney(-bet);
+        }
+        if(hand == 1) {
+            System.out.println(" (Second Hand)");
+        }
+        else {
+            System.out.println();
         }
     }
     
