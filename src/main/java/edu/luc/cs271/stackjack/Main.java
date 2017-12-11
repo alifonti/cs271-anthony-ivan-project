@@ -87,10 +87,10 @@ public class Main {
                         }
                     }
                     else if(dealer.getBlackjack() && table.get(i).getBlackjack()) {
-                        System.out.println("*** " + table.get(i).getName() + " got a stand-off ***");
+                        System.out.println("*** (~) " + table.get(i).getName() + " got a stand-off ***");
                     }
                     else {
-                        System.out.println("*** " + table.get(i).getName() + " lost ***");
+                        System.out.println("*** (-) " + table.get(i).getName() + " lost ***");
                         table.get(i).changeMoney(-table.get(i).getBet());
                     }
                     // Reset player
