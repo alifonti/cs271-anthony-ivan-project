@@ -121,7 +121,7 @@ public class Player {
     //gameplay methods
     public int makeBet() {
         System.out.println("[   "+ name + "'s money: $" + moneyAmount + "   ]");
-        System.out.print("How much would you like to bet? (Divisible by two): $");
+        System.out.print("How much would you like to bet? $");
         Scanner scanner = new Scanner(System.in); 
         String input = scanner.nextLine();
         System.out.println();
@@ -133,7 +133,7 @@ public class Player {
             System.out.println("    ! Not a number !\n");
             return makeBet();
         }
-        if((moneyAmount - number >= 0) && number % 2 == 0 && number > 0) {
+        if((moneyAmount - number >= 0) && number > 0) {
             bet = number;
             return number;
         }

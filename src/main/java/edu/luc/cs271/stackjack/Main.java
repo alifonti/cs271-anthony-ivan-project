@@ -145,7 +145,7 @@ public class Main {
         
         else if(gm == 2) {
             if(rc == 0) {
-                System.out.println("game over");
+                System.out.println(">>>  Game over!  <<<");
                 int posBest = 0;
                 for(int i = 0; i < table.size(); i++) {
                     if(table.get(i).getMoney() > table.get(posBest).getMoney()) {
