@@ -206,7 +206,7 @@ public class Main {
                 chooseGamemode();
             }
         }
-        else if(!input.equals("Y") || !input.equals("y")) {
+        else if(!input.equals("Y") && !input.equals("y")) {
             chooseGamemode();
         }
         else {
