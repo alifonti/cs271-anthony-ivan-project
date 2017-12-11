@@ -6,8 +6,7 @@ public class Main {
         Deck deck = new Deck();
         Player dealer = new Player("Dealer");
         int gamemode = 0;
-        int roundCount = 0;
-        
+        int roundCount = 20;
         // Intro
         playIntro();
         
@@ -39,7 +38,7 @@ public class Main {
         System.out.println("\n");
         
         // gameplay loop
-        while(checkPlayingStatus(table, gamemode)) {
+        while(checkPlayingStatus(table, gamemode, roundCount)) {
             
             // Place bets
             for(int i = 0; i < table.size(); i++) {
@@ -100,6 +99,7 @@ public class Main {
             // Reset dealer
             System.out.println("\n");
             dealer.resetHand();
+            roundCount--;
             delay(1);
         }
     }
@@ -115,14 +115,14 @@ public class Main {
         }
     }
     
-    public static boolean checkPlayingStatus(ArrayList<Player> table, int gm) {
+    public static boolean checkPlayingStatus(ArrayList<Player> table, int gm, int rc) {
         if(gm == 0) {
             for(int i = 0; i < table.size(); i++) {
                 if(table.get(i).getMoney() > 1) {
                     return true;
                 }
             }
-            System.out.println("No more player money is at the table. Game over.");
+            System.out.println("No more players at the table have money. Game over.");
             return false;
         }
         else if(gm == 1) {
@@ -139,21 +139,30 @@ public class Main {
                     return true;
                 }
             }
-            System.out.println("No more player money is at the table. Game over.");
+            System.out.println("No more players at the table have money. Game over.");
             return false;
+        }
+        
+        else if(gm == 2) {
+            if(rc == 0) {
+                System.out.println("game over");
+                int posBest = 0;
+                for(int i = 0; i < table.size(); i++) {
+                    if(table.get(i).getMoney() > table.get(posBest).getMoney()) {
+                        posBest = i;
+                    }
+                }
+                System.out.println(table.get(posBest).getName() + " won with $" + table.get(posBest).getMoney() + "!");
+                return false;
+            }
+            else {
+                System.out.println(">>>  " + rc + " hands to go  <<<\n");
+                return true;
+            }
         }
         else {
             return true;
         }
-        // else {
-        //     if(roundCount == 20) {
-        //         System.out.println("game over");
-        //     }
-        //     else {
-        //         System.out.println((20 - roundCount) + " hands to go.");
-        //         roundCount++;
-        //     }
-        // }
     }
     
     public static int chooseGamemode() {
@@ -162,11 +171,11 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         if(input.equals("N") || input.equals("n")) {
-            System.out.println("Which gamemode would you like to play?");
-            System.out.println("( 1 ) - Standard. Play unlimited hands.");
-            System.out.println("( 2 ) - Race to $1,000. First player to reach $1,000 wins!");
-            System.out.println("( 3 ) - Best of Twenty Hands. Player with the most money after 20 hands wins.");
-            System.out.print("Your choice: ");
+            System.out.println("    Which gamemode would you like to play?");
+            System.out.println("    ( 1 ) - Standard. Play unlimited hands.");
+            System.out.println("    ( 2 ) - Race to $1,000. First player to reach $1,000 wins!");
+            System.out.println("    ( 3 ) - Best of Twenty Hands. Player with the most money after 20 hands wins.");
+            System.out.print("    Your choice: ");
             String input2 = scanner.nextLine();
             if(input2.equals("1")) {
                 return 0;

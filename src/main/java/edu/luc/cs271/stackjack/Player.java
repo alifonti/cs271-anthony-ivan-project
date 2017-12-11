@@ -44,6 +44,17 @@ public class Player {
         return false;
     }
     
+    public boolean isNumber(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     // hand methods
     public void hit(Card drawn, int hand) {
         hands.get(hand).add(drawn);
@@ -115,7 +126,7 @@ public class Player {
         String input = scanner.nextLine();
         System.out.println();
         int number = 0;
-        if(!isAlpha(input)) {
+        if(isNumber(input)) {
             number = Integer.parseInt(input);
         }
         else {
