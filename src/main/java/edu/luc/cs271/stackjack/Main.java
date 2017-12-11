@@ -21,8 +21,8 @@ public class Main {
         String input = scanner.nextLine();
         Player playerOne = new Player(input);
         table.add(playerOne);
+        System.out.println("\n--Press enter when finished--\nor enter another name to add a player (for up to 7 Players)");
         for(int i = 2; i <= 7; i++) {
-            System.out.println("\n--Press enter when finished--\nor enter another name to add a player (for up to 7 Players)");
             System.out.print("Name " + i + ": ");
             String name = scanner.nextLine();
             if(name.equals("")) {
@@ -202,7 +202,7 @@ public class Main {
                 return 2;
             }
             else {
-                System.out.println("Invalid Number");
+                System.out.println("\nInvalid Choice\n");
                 chooseGamemode();
             }
         }
