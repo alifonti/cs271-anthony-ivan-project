@@ -48,7 +48,7 @@ public class Main {
             
             // Place bets
             for(int i = 0; i < table.size(); i++) {
-                if(table.get(i).getMoney() > 1) {
+                if(table.get(i).getMoney() > 0) {
                     table.get(i).makeBet();
                 }
             }
@@ -59,7 +59,7 @@ public class Main {
             
             // Player plays
             for(int i = 0; i < table.size(); i++) {  
-                if(table.get(i).getMoney() > 1 && !dealer.getBlackjack()) {
+                if(table.get(i).getMoney() > 0 && !dealer.getBlackjack()) {
                     table.get(i).playHand(deck);
                 }
                 delay(1);
@@ -67,7 +67,7 @@ public class Main {
             
             // if dealer blackjack
             for(int i = 0; i < table.size(); i++) {  
-                if(table.get(i).getMoney() > 1 && dealer.getBlackjack()) {
+                if(table.get(i).getMoney() > 0 && dealer.getBlackjack()) {
                     table.get(i).playTwoCards(deck);
                 }
                 delay(0);
@@ -79,7 +79,7 @@ public class Main {
             
             //Compare hands
             for(int i = 0; i < table.size(); i++) {
-                if(table.get(i).getMoney() > 1) {
+                if(table.get(i).getMoney() > 0) {
                     if(!dealer.getBlackjack()) {
                         table.get(i).compareToDealer(dealer, 0);
                         if(table.get(i).countHand(1) != 0) {
@@ -133,7 +133,7 @@ public class Main {
     public static boolean checkPlayingStatus(ArrayList<Player> table, int gm, int rc) {
         if(gm == 0) {
             for(int i = 0; i < table.size(); i++) {
-                if(table.get(i).getMoney() > 1) {
+                if(table.get(i).getMoney() > 0) {
                     return true;
                 }
             }
@@ -150,7 +150,7 @@ public class Main {
             }
             if(win){return false;}
             for(int i = 0; i < table.size(); i++) {
-                if(table.get(i).getMoney() > 1) {
+                if(table.get(i).getMoney() > 0) {
                     return true;
                 }
             }
