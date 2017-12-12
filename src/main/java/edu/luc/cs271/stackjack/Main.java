@@ -121,11 +121,11 @@ public class Main {
     // Methods
     public static void delay(int length) {
         if(length == 1) {
-            try{Thread.sleep(500);}
+            try{Thread.sleep(200);}
             catch(InterruptedException ex){Thread.currentThread().interrupt();}
         }
         else {
-            try{Thread.sleep(200);}
+            try{Thread.sleep(100);}
             catch(InterruptedException ex){Thread.currentThread().interrupt();}
         }
     }
@@ -170,14 +170,16 @@ public class Main {
                 System.out.println(table.get(posBest).getName() + " won with $" + table.get(posBest).getMoney() + "!");
                 return false;
             }
-            else {
-                System.out.println(">>>  " + rc + " hands to go  <<<\n");
-                return true;
+            System.out.println(">>>  " + rc + " hands to go  <<<\n");
+            for(int i = 0; i < table.size(); i++) {
+                if(table.get(i).getMoney() > 0) {
+                    return true;
+                }
             }
+            System.out.println("No more players at the table have money. Game over.");
+            return false;
         }
-        else {
-            return true;
-        }
+        return true;
     }
     
     public static int chooseGamemode() {
