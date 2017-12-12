@@ -91,7 +91,6 @@ public class Player {
     public void resetHand() {
         hands.get(0).clear();
         hands.get(1).clear();
-        bet = 0;
         bust = false;
         turnOver = false;
         blackjack = false;
@@ -121,13 +120,23 @@ public class Player {
     //gameplay methods
     public int makeBet() {
         System.out.println("[   "+ name + "'s money: $" + moneyAmount + "   ]");
-        System.out.print("How much would you like to bet? $");
-        Scanner scanner = new Scanner(System.in); 
-        String input = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        String input = "0";
+        if(bet == 0) {
+            System.out.print("How much would you like to bet? $"); 
+            input = scanner.nextLine();
+        }
+        else {
+            System.out.print("How much would you like to bet? $" + bet + "\n(enter to confirm, or type new amount here) >"); 
+            input = scanner.nextLine();
+        }
         System.out.println();
         int number = 0;
         if(isNumber(input) && !input.equals("")) {
             number = Integer.parseInt(input);
+        }
+        else if(input.equals("") && bet > 0) {
+            return bet;
         }
         else {
             System.out.println("    ! Not a number !\n");
