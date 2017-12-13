@@ -9,7 +9,7 @@ Stackjack is a lightweight project, all you need to get the game running is Java
 
 ### Running the Game
 
-Simply build and run `Main.java` to begin. If the file is being view in Cloud9, use the "Run" prompt on `Main.java` to start the game.
+Simply build and run `Main.java` to begin. If the file is being viewed in Cloud9, use the "Run" prompt on `Main.java` to start the game.
 
 ## Built With
 
