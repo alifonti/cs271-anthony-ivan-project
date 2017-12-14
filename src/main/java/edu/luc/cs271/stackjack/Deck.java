@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Deck {
-    ArrayList<Card> allCards = new ArrayList<>();
+    ArrayList<Card> allCards = new ArrayList<Card>();
     Stack<Card> stackedDeck;
     private int numOfDecks = 8;
     
@@ -18,25 +18,8 @@ public class Deck {
     }
 
     // prompt for Main
-    public void setNumofDecks() {
-        System.out.println("\nHow many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
-        System.out.print("Number of Decks: ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        if(isNumber(input)) {
-            int num = Integer.parseInt(input);
-            if(num > 0 && num < 9) {
-                numOfDecks = num;
-            }
-            else {
-                System.out.println("! Invalid Number");
-                setNumofDecks();
-            }
-        }
-        else {
-            System.out.println("! Invalid Number");
-            setNumofDecks();
-        }
+    public void setNumofDecks(int num) {
+        numOfDecks = num;
     }
     
     // setup methods
@@ -46,7 +29,7 @@ public class Deck {
     }
 
     public Stack<Card> shuffleAndStack() {
-        ArrayList<Integer> nums = new ArrayList<>();
+        ArrayList<Integer> nums = new ArrayList<Integer>();
         Stack<Card> randomizedCards = new Stack<Card>();
         nums.addAll(drawAtRandom());
         for(int i = 0; i < 51*numOfDecks; i++) {
@@ -56,7 +39,7 @@ public class Deck {
         
     }
     public ArrayList<Integer> drawAtRandom() {
-        ArrayList<Integer> numbers = new ArrayList<>();
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
         for (int i = 0; i <= 51*numOfDecks; i++) {
             numbers.add(i);
         }

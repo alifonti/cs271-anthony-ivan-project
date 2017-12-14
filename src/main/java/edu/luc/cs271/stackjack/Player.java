@@ -26,6 +26,7 @@ public class Player {
     public boolean getAceAsOne() {return specialAce;}
     public int getMoney() {return moneyAmount;}
     public int getBet() {return bet;}
+    public int getHandSize() {return hands.get(0).size();}
     public String getName() {return name;}
     
     public Card getCard(int pos, int hand) {
@@ -117,44 +118,50 @@ public class Player {
         }
     }
     
+    public void setBet(int amount) {
+        bet = amount;
+    }
+    
     //gameplay methods
-    public int makeBet() {
-        System.out.println("[   "+ name + "'s money: $" + moneyAmount + "   ]");
-        Scanner scanner = new Scanner(System.in);
-        String input = "0";
-        if(bet == 0 || bet > moneyAmount) {
-            System.out.print("How much would you like to bet? $"); 
-            input = scanner.nextLine();
-        }
-        else {
-            System.out.print("How much would you like to bet? $" + bet + "\n(enter to confirm, or type new amount here) >$"); 
-            input = scanner.nextLine();
-        }
-        System.out.println();
+    public void makeBet(String string) {
+        String input = string;
         int number = 0;
         if(isNumber(input) && !input.equals("")) {
             number = Integer.parseInt(input);
         }
-        else if(bet > moneyAmount) {
-            return makeBet();
-        }
-        else if(input.equals("") && bet > 0) {
-            return bet;
-        }
-        else {
-            System.out.println("    ! Not a number !\n");
-            return makeBet();
-        }
         if((moneyAmount - number >= 0) && number > 0) {
             bet = number;
-            return number;
         }
         else {
             System.out.println("    ! Invalid bet !\n");
-            return makeBet();
         }
     }
-    
+    public void showCards() {
+      System.out.println("(" + name + "'s Cards)");
+      for(int i = 0; i < 2; i++) {
+        System.out.println("> " + getCard(i,0).getCardString());
+      }
+      printTotal(0);
+    }
+    public void dealHand(Deck deck) {
+      //Player is dealt two cards
+        System.out.println("(" + name + "'s Cards)");
+        for(int i = 0; i <= 1; i++) {
+            Card draw = deck.popStack();
+            hit(draw, 0);
+            System.out.println("> " + draw.getCardString());
+        }
+        printTotal(0);
+        
+        // Player plays
+        if(countHand(0) == 21) {
+            //win
+            System.out.println("Blackjack!\n\n----------");
+            changeBlackjack(true);
+            changeTurnOver(true);
+            changeMoney(bet + (bet/2));
+        }
+    }
     public void playHand(Deck deck) {
         //Player is dealt two cards
         System.out.println("(" + name + "'s Cards)");

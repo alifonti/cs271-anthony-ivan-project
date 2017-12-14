@@ -1,7 +1,9 @@
 import java.util.*;
 
 public class Main {
+  
     public static void main(String[] args) {
+      
         // Intro
         playIntro();
         // Start Gameplay Loop
@@ -39,7 +41,7 @@ public class Main {
         roundCount = 20;
         
         // set deck
-        deck.setNumofDecks();
+        //deck.setNumofDecks();
         deck.setDeck();
         System.out.println("\n");
         
@@ -49,7 +51,7 @@ public class Main {
             // Place bets
             for(int i = 0; i < table.size(); i++) {
                 if(table.get(i).getMoney() > 0) {
-                    table.get(i).makeBet();
+                    //table.get(i).makeBet();
                 }
             }
             

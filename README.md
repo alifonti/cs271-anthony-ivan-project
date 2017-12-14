@@ -5,7 +5,7 @@
 ## Getting Started
 ### Prerequisites
 
-Stackjack is a lightweight project, all you need to get the game running is Java.
+Stackjack is a lightweight project, so all you need to get the game running is Java.
 
 ### Running the Game
 
