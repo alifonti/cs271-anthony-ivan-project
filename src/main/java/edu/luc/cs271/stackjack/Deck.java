@@ -3,7 +3,7 @@ import java.util.*;
 public class Deck {
     ArrayList<Card> allCards = new ArrayList<>();
     Stack<Card> stackedDeck;
-    private int numOfDecks = 6;
+    private int numOfDecks = 8;
     
     //constructor
     public Deck() {
@@ -17,12 +17,13 @@ public class Deck {
         }
     }
 
+    // prompt for Main
     public void setNumofDecks() {
-        System.out.println("How many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
+        System.out.println("\nHow many decks would you like to play with?\n" + "  | Recommended: 6   |" + "\n  |      Limits: 1-8 |");
         System.out.print("Number of Decks: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        if(!isAlpha(input)) {
+        if(isNumber(input)) {
             int num = Integer.parseInt(input);
             if(num > 0 && num < 9) {
                 numOfDecks = num;
@@ -38,6 +39,7 @@ public class Deck {
         }
     }
     
+    // setup methods
     public void setDeck() {
         System.out.println("---shuffling a new deck---");
         stackedDeck = shuffleAndStack();
@@ -74,14 +76,14 @@ public class Deck {
     }
     
     // input verifier
-    public boolean isAlpha(String name) {
+    public boolean isNumber(String name) {
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
-            if(Character.isLetter(c)) {
-                return true;
+            if(!Character.isDigit(c)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }

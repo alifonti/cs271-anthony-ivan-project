@@ -44,6 +44,17 @@ public class Player {
         return false;
     }
     
+    public boolean isNumber(String name) {
+        char[] chars = name.toCharArray();
+
+        for (char c : chars) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     // hand methods
     public void hit(Card drawn, int hand) {
         hands.get(hand).add(drawn);
@@ -80,7 +91,6 @@ public class Player {
     public void resetHand() {
         hands.get(0).clear();
         hands.get(1).clear();
-        bet = 0;
         bust = false;
         turnOver = false;
         blackjack = false;
@@ -110,19 +120,32 @@ public class Player {
     //gameplay methods
     public int makeBet() {
         System.out.println("[   "+ name + "'s money: $" + moneyAmount + "   ]");
-        System.out.print("How much would you like to bet? (Divisible by two): $");
-        Scanner scanner = new Scanner(System.in); 
-        String input = scanner.nextLine();
+        Scanner scanner = new Scanner(System.in);
+        String input = "0";
+        if(bet == 0 || bet > moneyAmount) {
+            System.out.print("How much would you like to bet? $"); 
+            input = scanner.nextLine();
+        }
+        else {
+            System.out.print("How much would you like to bet? $" + bet + "\n(enter to confirm, or type new amount here) >$"); 
+            input = scanner.nextLine();
+        }
         System.out.println();
         int number = 0;
-        if(!isAlpha(input)) {
+        if(isNumber(input) && !input.equals("")) {
             number = Integer.parseInt(input);
+        }
+        else if(bet > moneyAmount) {
+            return makeBet();
+        }
+        else if(input.equals("") && bet > 0) {
+            return bet;
         }
         else {
             System.out.println("    ! Not a number !\n");
             return makeBet();
         }
-        if((moneyAmount - number >= 0) && number % 2 == 0) {
+        if((moneyAmount - number >= 0) && number > 0) {
             bet = number;
             return number;
         }
@@ -145,7 +168,7 @@ public class Player {
         // Player plays
         if(countHand(0) == 21) {
             //win
-            System.out.println("Blackjack!\n");
+            System.out.println("Blackjack!\n\n----------");
             changeBlackjack(true);
             changeTurnOver(true);
             changeMoney(bet + (bet/2));
@@ -189,11 +212,11 @@ public class Player {
                     changeTurnOver(true);
                     System.out.print("\n----------\n");
                 }
-                else if(bet * 2 > moneyAmount) {
-                    System.out.println(" ?? Insufficient money to split. Need at least double your bet\n");
+                else if(!checkPair()) {
+                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.\n");
                 }
                 else {
-                    System.out.println(" ?? Cannot split this hand. You can only split if dealt a pair.\n");
+                    System.out.println(" ?? Cannot split this hand. You don't have enough money to double your bet.\n");
                 }
             }
             else if(keyboard.equals("D") || keyboard.equals("d")) {
@@ -208,7 +231,12 @@ public class Player {
                     System.out.print("\n----------\n");
                 }
                 else {
-                    System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
+                    if(bet * 2 > moneyAmount) {
+                        System.out.println(" ?? Cannot double down on this hand. You don't have enough money to double your bet.\n");
+                    }
+                    else {
+                        System.out.println(" ?? Cannot double down on this hand. First two cards must add up to 9, 10, or 11.\n");
+                    }
                 }
             }
         }
@@ -253,7 +281,7 @@ public class Player {
             Card draw = deck.popStack();
             hit(draw, 0);
             if(i == 0) System.out.println("> " + draw.getCardString());
-            else System.out.println("[Card Face Down]");
+            else System.out.println("> [Card Face Down]");
         }
         if(countHand(0) == 21) blackjack = true;
         System.out.println("================\n");
@@ -287,29 +315,36 @@ public class Player {
     }
     
     public void compareToDealer(Player dealer, int hand) {
+        //evaluations
         if(blackjack) {
-            System.out.println("*** " + name + " got Blackjack! ***");
+            System.out.print("*** (!) " + name + " got Blackjack! ***");
         }
         else if(dealer.getBustStatus() && countHand(hand) <= 21 && !blackjack) {
-            System.out.println("*** " + name + " won! ***");
+            System.out.print("*** (+) " + name + " won! ***");
             changeMoney(bet);
         }
         else if(countHand(hand) > dealer.countHand(0) && countHand(hand) <= 21) {
-            System.out.println("*** " + name + " won! ***");
+            System.out.print("*** (+) " + name + " won! ***");
             changeMoney(bet);
         }
         
         else if(countHand(hand) > 21) {
-            System.out.println("*** " + name + " bust ***");
+            System.out.print("*** (-) " + name + " bust ***");
         }
         
         else if(countHand(hand) == dealer.countHand(0) && !blackjack) {
-            System.out.println("*** " + name + " pushed ***");
+            System.out.print("*** (~) " + name + " pushed ***");
         }
         
         else {
-            System.out.println("*** " + name + " lost ***");
+            System.out.print("*** (-) " + name + " lost ***");
             changeMoney(-bet);
+        }
+        if(hand == 1) {
+            System.out.println(" (Second Hand)");
+        }
+        else {
+            System.out.println();
         }
     }
     
