@@ -3,7 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.PrintStream;
 import java.util.*;
-import javax.swing.event.ChangeListener;
 
 public class StackJack {
 
@@ -84,7 +83,7 @@ public class StackJack {
         // Options Panel
         JPanel optionsPanel = new JPanel(new GridBagLayout());
         frame.add(optionsPanel, BorderLayout.NORTH);
-        
+        optionsPanel.setBackground(new Color(201, 221, 255));
         JLabel decksLabel = new JLabel("Number of Decks");
         decksLabel.setFont(new Font("Arial",Font.PLAIN,28));
         
@@ -98,12 +97,14 @@ public class StackJack {
         numberDecks.setMinorTickSpacing(0);
         numberDecks.setPaintTicks(true);
         numberDecks.setPaintLabels(true);
+        numberDecks.setBackground(new Color(201, 221, 255));
         
         JSlider numberGamemode = new JSlider(JSlider.HORIZONTAL, 1, 3, 1);
         numberGamemode.setMajorTickSpacing(1);
         numberGamemode.setMinorTickSpacing(0);
         numberGamemode.setPaintTicks(true);
         numberGamemode.setPaintLabels(true);
+        numberGamemode.setBackground(new Color(201, 221, 255));
         
         c.insets = new Insets(10,10,5,5);
         c.gridx = 0;
@@ -403,6 +404,8 @@ public class StackJack {
           new ActionListener() {
             public void actionPerformed(ActionEvent e) {
               Player current = table.get(listNames.getSelectedIndex());
+              buttonDouble.setEnabled(false);
+              buttonSplit.setEnabled(false);
               Card draw = deck.popStack();
               current.hit(draw, 0);
               System.out.println("> " + draw.getCardString());
@@ -449,7 +452,7 @@ public class StackJack {
               System.out.println();
               System.out.println("@@   Right Hand   @@");
               System.out.println("> " + second.getCardString());
-              current.playSplitHand(deck, second, 1);
+              //current.playSplitHand(deck, second, 1);
               current.changeTurnOver(true);
               System.out.print("\n----------\n");
               if(current.getTurnOver() || current.getBustStatus()) {
