@@ -43,7 +43,7 @@ public class StackJack {
         frame.add(listPanel, BorderLayout.CENTER);
          
         final JList<String> list = new JList<String>(list1);
-          
+        list.setBackground(new Color(201, 221, 255));
         list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL_WRAP);
         list.setVisibleRowCount(-1);
@@ -248,10 +248,15 @@ public class StackJack {
         // labels
         JLabel playersLabel = new JLabel("Players");
         playersLabel.setFont(new Font("Arial",Font.PLAIN,24));
+        playersLabel.setForeground(Color.WHITE);
+        
         JLabel moneyLabel = new JLabel("Money");
         moneyLabel.setFont(new Font("Arial",Font.ITALIC,24));
+        moneyLabel.setForeground(new Color(76, 76, 76));
+        
         JLabel betLabel = new JLabel("Bet");
         betLabel.setFont(new Font("Arial",Font.BOLD,24));
+        betLabel.setForeground(new Color(230, 250, 210));
         
         // lists
         for(int i = 0; i < table.size(); i++) {
@@ -263,6 +268,8 @@ public class StackJack {
         listNames.setVisibleRowCount(-1);
         listNames.setPreferredSize(new Dimension(100, 250));
         listNames.setFont(new Font("Arial",Font.PLAIN,24));
+        listNames.setBackground(new Color(57, 163, 55));
+        listNames.setForeground(Color.WHITE);
         listNames.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
         
         for(int i = 0; i < table.size(); i++) {
@@ -270,11 +277,13 @@ public class StackJack {
           listModelMoney.addElement(amt);
         }
         final JList<String> listMoney = new JList<String>(listModelMoney);
-        listMoney.setEnabled(false);
+        listMoney.setEnabled(true);
         listMoney.setLayoutOrientation(JList.VERTICAL_WRAP);
         listMoney.setVisibleRowCount(-1);
         listMoney.setPreferredSize(new Dimension(100, 250));
         listMoney.setFont(new Font("Arial",Font.ITALIC,24));
+        listMoney.setBackground(new Color(76, 76, 76));
+        listMoney.setForeground(new Color(200, 200, 200));
         listMoney.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
         
         for(int i = 0; i < table.size(); i++) {
@@ -287,6 +296,7 @@ public class StackJack {
         listBet.setVisibleRowCount(-1);
         listBet.setPreferredSize(new Dimension(100, 250));
         listBet.setFont(new Font("Arial",Font.BOLD,24));
+        listBet.setBackground(new Color(230, 250, 210));
         listBet.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
         
         // arrangment
@@ -313,6 +323,7 @@ public class StackJack {
         
 //        actionPanel
         JPanel actionPanel = new JPanel(new GridBagLayout());
+        actionPanel.setBackground(new Color(201, 221, 255));
         frameGame.add(actionPanel, BorderLayout.SOUTH);
         buttonHit.setEnabled(false);
         buttonStand.setEnabled(false);
