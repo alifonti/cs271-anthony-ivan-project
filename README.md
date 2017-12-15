@@ -7,9 +7,13 @@
 
 Stackjack is a lightweight project, all you need to get the game running is Java.
 
-### Running the Game
+### Running the Game (GUI Version)
 
-Simply build and run `Main.java` to begin. If the file is being viewed in Cloud9, use the "Run" prompt on `Main.java` to start the game.
+Download the most recent GUI version in our repository ([v0.1-gui](https://github.com/alifonti/cs271-anthony-ivan-project/releases/tag/v0.1-gui)) and then build and run `StackJack.java`. The files must be on a local (not remote) computer so that the game can utilize the display.
+
+### Running the Game (Text/Console Version)
+
+Download the most recent text version in our repository ([v1.0-text](https://github.com/alifonti/cs271-anthony-ivan-project/releases/tag/v1.0-console)) and simply build and run `Main.java` to begin. If the file is being viewed in Cloud9, use the "Run" prompt on `Main.java` to start the game.
 
 ## Built With
 
@@ -24,8 +28,8 @@ We use [GitHub](https://github.com/) for versioning. For the versions available,
 
 *Listed Alphabetically*
 
-* **Anthony LiFonti** - *Gameplay development*
-* **Ivan Kavanagh** - *Initial work, GUI (WIP), and Project Management*
+* **Anthony LiFonti** - *Gameplay development, GUI*
+* **Ivan Kavanagh** - *Initial work, GUI*
 
 ## Acknowledgments
 
